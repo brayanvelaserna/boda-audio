@@ -7,59 +7,72 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
 
 <style>
+*{
+    -webkit-tap-highlight-color: transparent;
+}
+
 body{
     background: transparent;
     text-align:center;
     font-family: 'DM Serif Display', serif;
     margin:0;
-    padding:20px;
+    padding:10px 15px;
 }
 
 .title{
-    font-size: clamp(24px, 6vw, 40px);
-    margin-bottom:25px;
+    font-size: 22px;
+    margin-bottom:20px;
 }
 
 .player-container{
     width:100%;
-    max-width:400px;
+    max-width:280px;
     margin:auto;
 }
 
 input[type=range]{
     width:100%;
     appearance:none;
-    height:3px;
+    -webkit-appearance:none;
+    height:2px;
     background:black;
     outline:none;
 }
 
 input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;
     appearance:none;
-    width:14px;
-    height:14px;
+    width:12px;
+    height:12px;
     background:black;
     border-radius:50%;
     cursor:pointer;
 }
 
 .controls{
-    margin-top:30px;
+    margin-top:25px;
     display:flex;
     justify-content:center;
     align-items:center;
-    gap:40px;
+    gap:25px;
 }
 
 button{
     background:none;
     border:none;
+    outline:none;
+    color:black;
+    font-size:22px;
     cursor:pointer;
 }
 
+button:focus{
+    outline:none;
+}
+
 .main-btn{
-    width:70px;
-    height:70px;
+    width:55px;
+    height:55px;
     background:black;
     border-radius:50%;
     display:flex;
@@ -69,11 +82,7 @@ button{
 
 .main-btn span{
     color:white;
-    font-size:22px;
-}
-
-.icon{
-    font-size:28px;
+    font-size:18px;
 }
 </style>
 </head>
@@ -86,17 +95,13 @@ button{
 <input type="range" id="progress" value="0">
 
 <div class="controls">
-<button onclick="back()">
-<span class="icon">&#9664;&#9664;</span>
-</button>
+<button onclick="back()">&#9664;&#9664;</button>
 
 <button class="main-btn" onclick="playPause()">
 <span id="playIcon">▶</span>
 </button>
 
-<button onclick="forward()">
-<span class="icon">&#9654;&#9654;</span>
-</button>
+<button onclick="forward()">&#9654;&#9654;</button>
 </div>
 </div>
 
