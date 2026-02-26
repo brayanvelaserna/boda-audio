@@ -7,27 +7,22 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
 
 <style>
-*{
-    -webkit-tap-highlight-color: transparent;
+html,body{
+    margin:0;
+    padding:0;
+    background:transparent;
+    font-family:'DM Serif Display', serif;
 }
 
-body{
-    background: transparent;
+.wrapper{
+    width:260px;
+    margin:auto;
     text-align:center;
-    font-family: 'DM Serif Display', serif;
-    margin:0;
-    padding:10px 15px;
 }
 
 .title{
-    font-size: 22px;
-    margin-bottom:20px;
-}
-
-.player-container{
-    width:100%;
-    max-width:280px;
-    margin:auto;
+    font-size:18px;
+    margin-bottom:15px;
 }
 
 input[type=range]{
@@ -41,38 +36,31 @@ input[type=range]{
 
 input[type=range]::-webkit-slider-thumb{
     -webkit-appearance:none;
-    appearance:none;
-    width:12px;
-    height:12px;
+    width:10px;
+    height:10px;
     background:black;
     border-radius:50%;
-    cursor:pointer;
 }
 
 .controls{
-    margin-top:25px;
+    margin-top:15px;
     display:flex;
     justify-content:center;
     align-items:center;
-    gap:25px;
+    gap:18px;
 }
 
 button{
     background:none;
     border:none;
-    outline:none;
     color:black;
-    font-size:22px;
-    cursor:pointer;
+    font-size:18px;
+    padding:0;
 }
 
-button:focus{
-    outline:none;
-}
-
-.main-btn{
-    width:55px;
-    height:55px;
+.main{
+    width:45px;
+    height:45px;
     background:black;
     border-radius:50%;
     display:flex;
@@ -80,24 +68,24 @@ button:focus{
     justify-content:center;
 }
 
-.main-btn span{
+.main span{
     color:white;
-    font-size:18px;
+    font-size:16px;
 }
 </style>
 </head>
 
 <body>
 
+<div class="wrapper">
 <div class="title">Dale clic para escuchar la canción</div>
 
-<div class="player-container">
 <input type="range" id="progress" value="0">
 
 <div class="controls">
 <button onclick="back()">&#9664;&#9664;</button>
 
-<button class="main-btn" onclick="playPause()">
+<button class="main" onclick="playPause()">
 <span id="playIcon">▶</span>
 </button>
 
@@ -112,34 +100,26 @@ const audio = document.getElementById("audio");
 const progress = document.getElementById("progress");
 const playIcon = document.getElementById("playIcon");
 
-audio.onloadedmetadata = function(){
-    progress.max = audio.duration;
-}
-
-audio.ontimeupdate = function(){
-    progress.value = audio.currentTime;
-}
-
-progress.oninput = function(){
-    audio.currentTime = progress.value;
-}
+audio.onloadedmetadata = () => progress.max = audio.duration;
+audio.ontimeupdate = () => progress.value = audio.currentTime;
+progress.oninput = () => audio.currentTime = progress.value;
 
 function playPause(){
     if(audio.paused){
         audio.play();
-        playIcon.innerHTML = "❚❚";
-    } else{
+        playIcon.innerHTML="❚❚";
+    }else{
         audio.pause();
-        playIcon.innerHTML = "▶";
+        playIcon.innerHTML="▶";
     }
 }
 
 function back(){
-    audio.currentTime = Math.max(0, audio.currentTime - 10);
+    audio.currentTime=Math.max(0,audio.currentTime-10);
 }
 
 function forward(){
-    audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+    audio.currentTime=Math.min(audio.duration,audio.currentTime+10);
 }
 </script>
 
