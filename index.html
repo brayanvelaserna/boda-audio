@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<!-- Fuente DM Serif Display -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<style>
+body{
+    background: transparent;
+    text-align:center;
+    font-family: 'DM Serif Display', serif;
+}
+
+.title{
+    font-size: 48px;
+    margin-bottom:25px;
+}
+
+.player-container{
+    width:600px;
+    margin:auto;
+}
+
+input[type=range]{
+    width:100%;
+    appearance:none;
+    height:3px;
+    background:black;
+    outline:none;
+}
+
+input[type=range]::-webkit-slider-thumb{
+    appearance:none;
+    width:16px;
+    height:16px;
+    background:black;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+.controls{
+    margin-top:40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:70px;
+}
+
+button{
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+
+.main-btn{
+    width:95px;
+    height:95px;
+    background:black;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.main-btn span{
+    color:white;
+    font-size:28px;
+}
+
+.icon{
+    font-size:42px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="title">Dale clic para escuchar la canción</div>
+
+<div class="player-container">
+<input type="range" id="progress" value="0">
+
+<div class="controls">
+<button onclick="back()">
+<span class="icon">&#9664;&#9664;</span>
+</button>
+
+<button class="main-btn" onclick="playPause()">
+<span id="playIcon">▶</span>
+</button>
+
+<button onclick="forward()">
+<span class="icon">&#9654;&#9654;</span>
+</button>
+</div>
+</div>
+
+<audio id="audio" src="https://raw.githubusercontent.com/brayanvelaserna/boda-audio/main/nuestra-cancion.mp3"></audio>
+
+<script>
+const audio = document.getElementById("audio");
+const progress = document.getElementById("progress");
+const playIcon = document.getElementById("playIcon");
+
+audio.onloadedmetadata = function(){
+    progress.max = audio.duration;
+}
+
+audio.ontimeupdate = function(){
+    progress.value = audio.currentTime;
+}
+
+progress.oninput = function(){
+    audio.currentTime = progress.value;
+}
+
+function playPause(){
+    if(audio.paused){
+        audio.play();
+        playIcon.innerHTML = "❚❚";
+    } else{
+        audio.pause();
+        playIcon.innerHTML = "▶";
+    }
+}
+
+function back(){
+    audio.currentTime -= 10;
+}
+
+function forward(){
+    audio.currentTime += 10;
+}
+</script>
+
+</body>
+</html>
